@@ -1,99 +1,90 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { View, Text, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  date, 
-  event, 
-  isShowModal, 
-  setEventName, 
-  setSelectedDate, 
-  setShowModal 
-} from '../redux/slices/eventsSlice'
+import { setEventName, setShowModal } from '../redux/slices/eventsSlice';
+import DateRangeCalendar from '../components/DateRangeCalendar';
+import DateTimeSelection from '../components/DateTimeSelection';
+import RepeatSelect from '../components/RepeatSelect';
 
-const CalendarScreen = () => {
-  const selectedDate = useSelector(date);
-  const eventName = useSelector(event);
-  const showModal = useSelector(isShowModal);
+const CalendarScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  const eventName = useSelector((state) => state.events.event);
+  const showModal = useSelector((state) => state.events.isShowModal);
 
   return (
     <Provider>
-      <View style={styles.container}>
-        <Calendar
-          onDayPress={(day) => dispatch(setSelectedDate(day.dateString))}
-          markedDates={{
-            [selectedDate]: { selected: true, selectedColor: '#FDCB58' },
-          }}
-          theme={{
-            todayTextColor: '#FDCB58',
-            selectedDayBackgroundColor: '#FDCB58',
-            arrowColor: '#000',
-          }}
-        />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardView}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.container}>
+            <DateRangeCalendar />
 
-        <Text style={styles.label}>Event Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Every Name"
-          value={eventName}
-          onChangeText={(text) => dispatch(setEventName(text))}
-        />
+            <Text style={styles.label}>Event Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter event name"
+              value={eventName}
+              onChangeText={(text) => dispatch(setEventName(text))}
+            />
 
-        <View style={styles.dateTimeRow}>
-          <TouchableOpacity 
-            style={styles.dateBox} 
-            onPress={() => dispatch(setShowModal(true))}
-          >
-            <Text>{selectedDate || 'Select Date'}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.dateBox} 
-            onPress={() => dispatch(setShowModal(true))}
-          >
-            <Text>03:00 PM</Text>
-          </TouchableOpacity>
-        </View>
+            <DateTimeSelection />
+            <RepeatSelect />
 
-        <Text style={styles.label}>Repeat</Text>
-        <TouchableOpacity style={styles.dropdown}>
-          <Text>Every Week</Text>
-        </TouchableOpacity>
+            <Button 
+              mode="contained" 
+              style={[styles.button, { backgroundColor: '#5A67D8' }]} 
+              onPress={() => navigation.navigate('Events List')}
+            >
+              View Events
+            </Button>
 
-        <Button 
-          mode="contained" 
-          style={styles.button} 
-          onPress={() => alert('Event Created')}
-        >
-          Create New Event
-        </Button>
+            <Button 
+              mode="contained" 
+              style={styles.button} 
+              onPress={() => alert('Event Created')}
+            >
+              Create New Event
+            </Button>
 
-        <Portal>
-          <Modal 
-            visible={showModal} 
-            onDismiss={() => dispatch(setShowModal(false))} 
-            contentContainerStyle={styles.modal}
-          >
-            <Text>Select Date or Time</Text>
-            <Button onPress={() => dispatch(setShowModal(false))}>Close</Button>
-          </Modal>
-        </Portal>
-      </View>
+            <Portal>
+              <Modal 
+                visible={showModal} 
+                onDismiss={() => dispatch(setShowModal(false))} 
+                contentContainerStyle={styles.modal}
+              >
+                <Text>Select Date or Time</Text>
+                <Button onPress={() => dispatch(setShowModal(false))}>Close</Button>
+              </Modal>
+            </Portal>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Provider>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardView: {
+    flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: '#F8F9FB',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    justifyContent: "center",
   },
   label: {
-    marginTop: 10,
     fontSize: 16,
     fontWeight: 'bold',
+    marginTop: 10,
   },
   input: {
     backgroundColor: '#fff',
@@ -102,27 +93,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 16,
   },
-  dateTimeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  dateBox: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 10,
-    width: '48%',
-    alignItems: 'center',
-  },
-  dropdown: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 5,
-  },
   button: {
     marginTop: 20,
     backgroundColor: '#FDCB58',
+    paddingVertical: 10,
   },
   modal: {
     backgroundColor: 'white',
@@ -133,3 +107,7 @@ const styles = StyleSheet.create({
 });
 
 export default CalendarScreen;
+
+
+
+
