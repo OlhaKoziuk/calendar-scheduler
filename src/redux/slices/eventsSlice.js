@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const getCurrentDate = () => {
+export const getCurrentDate = () => {
   const today = new Date();
   return today.toISOString().split('T')[0];
 };
 
-const getDefaultTime = () => '00:00';
+export const getDefaultTime = () => '00:00';
 
 const initialState= {
   startDateEvent: getCurrentDate(),
@@ -45,7 +45,7 @@ const eventsSlice = createSlice({
       state.repeatEvent = action.payload;
     },
     addEvent: (state, action) => {
-      state.events.push(action.payload);
+      state.events = [...state.events, action.payload];
     },
     updateEvent: (state, action) => {
       const { id, updatedEvent } = action.payload;

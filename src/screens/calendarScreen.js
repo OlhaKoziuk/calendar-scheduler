@@ -2,15 +2,64 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEventName, setShowModal } from '../redux/slices/eventsSlice';
+import { 
+  addEvent,
+  endDateEvent,
+  endTimeEvent,
+  event,
+  getCurrentDate,
+  getDefaultTime,
+  isShowModal,
+  repeatEvent,
+  setEndDateEvent,
+  setEndTimeEvent,
+  setEventName,
+  setRepeatEvent,
+  setShowModal,
+  setStartDateEvent,
+  setStartTimeEvent,
+  startDateEvent,
+  startTimeEvent
+} from '../redux/slices/eventsSlice';
 import DateRangeCalendar from '../components/DateRangeCalendar';
 import DateTimeSelection from '../components/DateTimeSelection';
 import RepeatSelect from '../components/RepeatSelect';
+import uuid from 'react-native-uuid';
 
 const CalendarScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const eventName = useSelector((state) => state.events.event);
-  const showModal = useSelector((state) => state.events.isShowModal);
+  const eventName = useSelector(event);
+  const showModal = useSelector(isShowModal);
+  const startDate = useSelector(startDateEvent);
+  const endDate = useSelector(endDateEvent);
+  const startTime = useSelector(startTimeEvent);
+  const endTime = useSelector(endTimeEvent);
+  const repeat = useSelector(repeatEvent);
+ 
+  const handleCreateEvent = () => {
+    const model = {
+      id: uuid.v4(),
+      eventName,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+      repeat
+    };
+
+    dispatch(addEvent(model));
+    alert('Event Created');
+    handResetFields();
+  };
+
+  const handResetFields = () => {
+    dispatch(setEventName(""));
+    dispatch(setStartDateEvent(getCurrentDate()));
+    dispatch(setEndDateEvent(getCurrentDate()));
+    dispatch(setStartTimeEvent(getDefaultTime()));
+    dispatch(setEndTimeEvent(getDefaultTime()));
+    dispatch(setRepeatEvent("weekly"));
+  };
 
   return (
     <Provider>
@@ -44,7 +93,7 @@ const CalendarScreen = ({ navigation }) => {
             <Button 
               mode="contained" 
               style={styles.button} 
-              onPress={() => alert('Event Created')}
+              onPress={handleCreateEvent}
             >
               Create New Event
             </Button>

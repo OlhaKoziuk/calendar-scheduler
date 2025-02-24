@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Menu, Button } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRepeatEvent } from '../redux/slices/eventsSlice';
 

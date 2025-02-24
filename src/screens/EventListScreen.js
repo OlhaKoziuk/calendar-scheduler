@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteEvent, setSelectedEvent } from '../redux/slices/eventsSlice';
+import EditEventModal from '../components/EditEventModal';
 
 const EventListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const events = useSelector((state) => state.events.events);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -16,15 +18,15 @@ const EventListScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.eventItem}>
             <View>
-              <Text style={styles.eventTitle}>{item.name}</Text>
-              <Text style={styles.eventDetails}>{item.time} - {item.repeat}</Text>
+              <Text style={styles.eventTitle}>{item.eventName}</Text>
+              <Text style={styles.eventDetails}>{item.startDate} - {item.repeat}</Text>
             </View>
             <View style={styles.buttons}>
               <TouchableOpacity 
                 style={styles.editButton} 
                 onPress={() => {
                   dispatch(setSelectedEvent(item));
-                  navigation.navigate('Create Event');
+                  setModalVisible(true);
                 }}
               >
                 <Text style={styles.buttonText}>Edit</Text>
@@ -36,6 +38,8 @@ const EventListScreen = ({ navigation }) => {
                 <Text style={styles.buttonText}>Delete</Text>
               </TouchableOpacity>
             </View>
+
+            <EditEventModal visible={modalVisible} onClose={() => setModalVisible(false)} />
           </View>
         )}
       />
