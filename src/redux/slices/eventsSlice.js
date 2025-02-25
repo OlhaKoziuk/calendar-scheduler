@@ -1,48 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export const getCurrentDate = () => {
-  const today = new Date();
-  return today.toISOString().split('T')[0];
-};
-
 export const getDefaultTime = () => '00:00';
 
-const initialState= {
-  startDateEvent: getCurrentDate(),
-  endDateEvent: getCurrentDate(),
-  startTimeEvent: getDefaultTime(),
-  endTimeEvent: getDefaultTime(),
-  eventName: "",
-  showModal: false,
-  repeatEvent: 'weekly',
-  events: [],
-  selectedEvent: null, 
-}
-
 const eventsSlice = createSlice({
-  name: 'events',
+  name: "events",
   initialState,
   reducers: {
     setStartDateEvent: (state, action) => {
-      state.startDateEvent = action.payload
+      state.startDateEvent = action.payload;
     },
     setEndDateEvent: (state, action) => {
-      state.endDateEvent = action.payload
+      state.endDateEvent = action.payload;
     },
     setStartTimeEvent: (state, action) => {
-      state.startTimeEvent = action.payload
+      state.startTimeEvent = action.payload;
     },
     setEndTimeEvent: (state, action) => {
-      state.endTimeEvent = action.payload
+      state.endTimeEvent = action.payload;
     },
     setEventName: (state, action) => {
-      state.eventName = action.payload
+      state.eventName = action.payload;
     },
     setShowModal: (state, action) => {
-      state.showModal = action.payload
+      state.showModal = action.payload;
     },
     setRepeatEvent: (state, action) => {
       state.repeatEvent = action.payload;
+    },
+    setEvents: (state, action) => {
+      state.events = action.payload;
     },
     addEvent: (state, action) => {
       state.events = [...state.events, action.payload];
@@ -62,6 +47,7 @@ const eventsSlice = createSlice({
   },
 });
 
+
 export const { 
   setSelectedDate, 
   setEventName, 
@@ -70,7 +56,8 @@ export const {
   setEndDateEvent,
   setStartTimeEvent,
   setEndTimeEvent,
-  setRepeatEvent, 
+  setRepeatEvent,
+  setEvents,
   addEvent, 
   updateEvent, 
   deleteEvent, 

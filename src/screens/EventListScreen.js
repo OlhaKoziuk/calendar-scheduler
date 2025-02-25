@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteEvent, setSelectedEvent } from '../redux/slices/eventsSlice';
 import EditEventModal from '../components/EditEventModal';
+import useEvents from '../hooks/useEvents';
 
 const EventListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.events.events);
+  const events = useEvents();
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -46,7 +47,7 @@ const EventListScreen = ({ navigation }) => {
 
       <TouchableOpacity 
         style={styles.createButton} 
-        onPress={() => navigation.navigate('Create Event')}
+        onPress={() => navigation.navigate("Create Event")}
       >
         <Text style={styles.buttonText}>Create New Event</Text>
       </TouchableOpacity>
@@ -61,50 +62,50 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   eventItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#fff",
     padding: 10,
     marginBottom: 5,
     borderRadius: 10,
   },
   eventTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   eventDetails: {
     fontSize: 14,
-    color: 'gray',
+    color: "gray",
   },
   buttons: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   editButton: {
-    backgroundColor: '#FDCB58',
+    backgroundColor: "#FDCB58",
     padding: 8,
     borderRadius: 5,
     marginRight: 5,
   },
   deleteButton: {
-    backgroundColor: '#FF6B6B',
+    backgroundColor: "#FF6B6B",
     padding: 8,
     borderRadius: 5,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
   createButton: {
     marginTop: 20,
-    backgroundColor: '#5A67D8',
+    backgroundColor: "#5A67D8",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 

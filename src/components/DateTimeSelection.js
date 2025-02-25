@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   endDateEvent, 
@@ -29,7 +29,7 @@ const DateTimeSelection = () => {
   };
 
   const handleConfirmStartTime = (date) => {
-    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const formattedTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     dispatch(setStartTimeEvent(formattedTime))
     hideStartTimePicker ();
   };
@@ -43,7 +43,7 @@ const DateTimeSelection = () => {
   };
 
   const handleConfirmEndTime = (date) => {
-    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const formattedTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     dispatch(setEndTimeEvent(formattedTime))
     hideEndTimePicker();
   };
@@ -53,14 +53,14 @@ const DateTimeSelection = () => {
       <Text style={styles.label}>Starts</Text>
       <View style={styles.dateTimeRow}>
         <TouchableOpacity style={styles.dateBox}>
-          <Text>{startDate || 'Select Start Date'}</Text>
+          <Text>{startDate || "Select Start Date"}</Text>
         </TouchableOpacity>
         <View>
           <Text 
             onPress={showStartTimePicker}
             style={[styles.timeBox, startTime ? styles.selectedTime : {}]}
           >
-            {startTime || 'Select Start Date'}
+            {startTime || "Select Start Date"}
           </Text>
           <DateTimePickerModal
             isVisible={isStartTimePickerVisible}
@@ -76,14 +76,14 @@ const DateTimeSelection = () => {
       <Text style={styles.label}>Ends</Text>
       <View style={styles.dateTimeRow}>
         <TouchableOpacity style={styles.dateBox}>
-          <Text>{endDate || 'Select End Date'}</Text>
+          <Text>{endDate || "Select End Date"}</Text>
         </TouchableOpacity>
         <View>
           <Text 
             onPress={showEndTimePicker}
             style={[styles.timeBox, startTime ? styles.selectedTime : {}]}
           >
-            {endTime || 'Select End Date'}
+            {endTime || "Select End Date"}
           </Text>
           <DateTimePickerModal
             isVisible={isEndTimePickerVisible}
@@ -102,30 +102,30 @@ const DateTimeSelection = () => {
 const styles = StyleSheet.create({
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
   },
   dateTimeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     gap: 8,
     marginTop: 5,
   },
   dateBox: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-    width: '48%',
-    alignItems: 'center',
-    textAlign: 'center',
+    width: "48%",
+    alignItems: "center",
+    textAlign: "center",
     flex: 1, 
   },
   timeBox: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-    textAlign: 'center',
+    textAlign: "center",
     flex: 1, 
   },
 });

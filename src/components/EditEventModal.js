@@ -35,43 +35,43 @@ const EditEventModal = ({ visible, onClose }) => {
           <Text>Event name:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.eventName || ''}
-            onChangeText={(text) => handleChange('eventName', text)}
+            value={eventData.eventName || ""}
+            onChangeText={(text) => handleChange("eventName", text)}
           />
 
           <Text>Start date:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.startDate || ''}
-            onChangeText={(text) => handleChange('startDate', text)}
+            value={eventData.startDate || ""}
+            onChangeText={(text) => handleChange("startDate", text)}
           />
 
           <Text>Start time:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.startTime || ''}
-            onChangeText={(text) => handleChange('startTime', text)}
+            value={eventData.startTime || ""}
+            onChangeText={(text) => handleChange("startTime", text)}
           />
 
           <Text>End Date:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.endDate || ''}
-            onChangeText={(text) => handleChange('endDate', text)}
+            value={eventData.endDate || ""}
+            onChangeText={(text) => handleChange("endDate", text)}
           />
 
           <Text>End time:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.endTime || ''}
-            onChangeText={(text) => handleChange('endTime', text)}
+            value={eventData.endTime || ""}
+            onChangeText={(text) => handleChange("endTime", text)}
           />
 
           <Text>Repeat:</Text>
           <TextInput
             style={styles.input}
-            value={eventData.repeat || ''}
-            onChangeText={(text) => handleChange('repeat', text)}
+            value={eventData.repeat || ""}
+            onChangeText={(text) => handleChange("repeat", text)}
           />
 
           <View style={styles.buttonContainer}>
@@ -87,34 +87,34 @@ const EditEventModal = ({ visible, onClose }) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     width: 300,
     padding: 20,
-    backgroundColor: 'white',
-    borderRadius: 10
+    backgroundColor: "white",
+    borderRadius: 10,
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     marginVertical: 5,
-    borderRadius: 5
+    borderRadius: 5,
   },
   buttonContainer: {
     marginTop: 10,
     display: "flex",
     flexDirection: "column",
-    gap: 8
-  }
+    gap: 8,
+  },
 });
 
 export default EditEventModal;

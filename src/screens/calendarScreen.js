@@ -1,5 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  StyleSheet, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  Platform, 
+  Alert 
+} from 'react-native';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
@@ -7,7 +16,6 @@ import {
   endDateEvent,
   endTimeEvent,
   event,
-  getCurrentDate,
   getDefaultTime,
   isShowModal,
   repeatEvent,
@@ -35,8 +43,13 @@ const CalendarScreen = ({ navigation }) => {
   const startTime = useSelector(startTimeEvent);
   const endTime = useSelector(endTimeEvent);
   const repeat = useSelector(repeatEvent);
- 
+
   const handleCreateEvent = () => {
+    if (!eventName || !startDate || !endDate || !startTime || !endTime) {
+      Alert.alert("Missing Fields", "Please fill in all fields before creating an event.");
+      return;
+    }
+
     const model = {
       id: uuid.v4(),
       eventName,
@@ -48,14 +61,14 @@ const CalendarScreen = ({ navigation }) => {
     };
 
     dispatch(addEvent(model));
-    alert('Event Created');
+    Alert.alert("Success", "Event Created");
     handResetFields();
   };
 
   const handResetFields = () => {
     dispatch(setEventName(""));
-    dispatch(setStartDateEvent(getCurrentDate()));
-    dispatch(setEndDateEvent(getCurrentDate()));
+    dispatch(setStartDateEvent(""));
+    dispatch(setEndDateEvent(""));
     dispatch(setStartTimeEvent(getDefaultTime()));
     dispatch(setEndTimeEvent(getDefaultTime()));
     dispatch(setRepeatEvent("weekly"));
@@ -84,8 +97,8 @@ const CalendarScreen = ({ navigation }) => {
 
             <Button 
               mode="contained" 
-              style={[styles.button, { backgroundColor: '#5A67D8' }]} 
-              onPress={() => navigation.navigate('Events List')}
+              style={[styles.button, { backgroundColor: "#5A67D8" }]} 
+              onPress={() => navigation.navigate("Events List")}
             >
               View Events
             </Button>
@@ -125,18 +138,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FB',
+    backgroundColor: "#F8F9FB",
     paddingHorizontal: 20,
     paddingVertical: 10,
     justifyContent: "center",
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 12,
     borderRadius: 10,
     marginTop: 5,
@@ -144,11 +157,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: '#FDCB58',
+    backgroundColor: "#FDCB58",
     paddingVertical: 10,
   },
   modal: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 20,
     margin: 20,
     borderRadius: 10,

@@ -10,9 +10,9 @@ const RepeatSelect = () => {
   const [visible, setVisible] = useState(false);
 
   const options = [
-    { label: 'Weekly', value: 'weekly' },
-    { label: 'Bi-weekly', value: 'bi-weekly' },
-    { label: 'Monthly', value: 'monthly' },
+    { label: "Weekly", value: "weekly" },
+    { label: "Bi-weekly", value: "bi-weekly" },
+    { label: "Monthly", value: "monthly" },
   ];
 
   return (
@@ -23,7 +23,7 @@ const RepeatSelect = () => {
         onDismiss={() => setVisible(false)}
         anchor={
           <TouchableOpacity style={styles.dropdown} onPress={() => setVisible(true)}>
-            <Text>{options.find((opt) => opt.value === repeatValue)?.label || 'Select Frequency'}</Text>
+            <Text>{options.find((opt) => opt.value === repeatValue)?.label || "Select Frequency"}</Text>
           </TouchableOpacity>
         }
       >
@@ -45,19 +45,20 @@ const RepeatSelect = () => {
 const styles = StyleSheet.create({
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
   },
   dropdown: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
     marginTop: 5,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
   },
 });
 
 export default RepeatSelect;
+
 
 
