@@ -1,6 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const getDefaultTime = () => '00:00';
 
+const initialState = {
+  startDateEvent: "",
+  endDateEvent: "",
+  startTimeEvent: getDefaultTime(),
+  endTimeEvent: getDefaultTime(),
+  eventName: "",
+  showModal: false,
+  repeatEvent: 'weekly',
+  events: [],
+  selectedEvent: {}, 
+}
+
 const eventsSlice = createSlice({
   name: "events",
   initialState,

@@ -108,7 +108,7 @@ const CalendarScreen = ({ navigation }) => {
               style={styles.button} 
               onPress={handleCreateEvent}
             >
-              Create New Event
+              Save
             </Button>
 
             <Portal>
